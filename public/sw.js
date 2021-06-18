@@ -76,7 +76,7 @@ function isInArray(string, array) {
 
 self.addEventListener('fetch', function (event) {
 
-  var url = 'https://pwagram-99adf.firebaseio.com/posts';
+  var url = 'https://pwa-kanchan-default-rtdb.asia-southeast1.firebasedatabase.app/posts';
   if (event.request.url.indexOf(url) > -1) {
     event.respondWith(fetch(event.request)
       .then(function (res) {
