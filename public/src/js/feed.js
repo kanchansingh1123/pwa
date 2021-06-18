@@ -91,7 +91,7 @@ function updateUI(data) {
   }
 }
 
-var url = 'https://pwa-kanchan-default-rtdb.asia-southeast1.firebasedatabase.app/posts.json';
+var url = 'https://pwagram-99adf.firebaseio.com/posts.json';
 var networkDataReceived = false;
 
 fetch(url)
