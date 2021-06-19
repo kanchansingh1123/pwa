@@ -125,7 +125,7 @@ if ('indexedDB' in window) {
 }
 
 function sendData() {
-  fetch('https://pwagram-99adf.firebaseio.com/posts.json', {
+  fetch('https://pwa-kanchan-default-rtdb.asia-southeast1.firebasedatabase.app/posts.json', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -135,7 +135,7 @@ function sendData() {
       id: new Date().toISOString(),
       title: titleInput.value,
       location: locationInput.value,
-      image: 'https://firebasestorage.googleapis.com/v0/b/pwagram-99adf.appspot.com/o/sf-boat.jpg?alt=media&token=19f4770c-fc8c-4882-92f1-62000ff06f16'
+      image: 'https://firebasestorage.googleapis.com/v0/b/pwa-kanchan.appspot.com/o/SanFrancisco.jpg?alt=media&token=8d9c1cff-2f4d-4164-b50c-99f8dc5492d1'
     })
   })
     .then(function(res) {
@@ -164,12 +164,12 @@ form.addEventListener('submit', function(event) {
         };
         writeData('sync-posts', post)
           .then(function() {
-            return sw.sync.register('sync-new-post');
+            return sw.sync.register('sync-new-posts');
           })
           .then(function() {
-            var snackbackContainer = document.querySelector('#confirmation-toast');
+            var snackbarContainer = document.querySelector('#confirmation-toast');
             var data = {message: 'Your Post was saved for syncing!'};
-            snackbackContainer.MaterialSnackback.showSnackbar(data);
+            snackbarContainer.MaterialSnackbar.showSnackbar(data);
           })
           .catch(function(err) {
             console.log(err);
