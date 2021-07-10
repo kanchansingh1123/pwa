@@ -28,8 +28,7 @@ function displayConfirmNotification() {
   var options = {
     body: 'You successfully subscribed to our Notification service!'
   };
-  console.log('sds');
-  new Notification('Successfully subscribed!');
+  new Notification('Successfully subscribed!', options);
 }
 
 function askForNotificationPermission() {
