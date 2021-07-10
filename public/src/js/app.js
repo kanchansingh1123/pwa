@@ -25,10 +25,23 @@ window.addEventListener('beforeinstallprompt', function(event) {
 });
 
 function displayConfirmNotification() {
-  var options = {
-    body: 'You successfully subscribed to our Notification service!'
-  };
-  new Notification('Successfully subscribed!', options);
+  if ('serviceWorker' in navigator) {
+    var options = {
+      body: 'You successfully subscribed to our Notification service!',
+      icon: '/src/images/icons/app-icon-96x96.png',
+      image: '/src/images/sf-boat.jpg',
+      dir: 'ltr',
+      lang: 'en-US', // BCP 47,
+      vibrate: [100, 50, 200],
+      badge: '/src/images/icons/app-icon-96x96.png'
+    };
+
+    // this return the active service worker registration.
+    navigator.serviceWorker.ready
+      .then(function(swreg) {
+        swreg.showNotification('Successfully subscribed (from SW)!', options);
+      });
+  }
 }
 
 function askForNotificationPermission() {

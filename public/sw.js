@@ -1,7 +1,7 @@
 importScripts('/src/js/idb.js');
 importScripts('/src/js/utility.js');
 
-var CACHE_STATIC_NAME = 'static-v27';
+var CACHE_STATIC_NAME = 'static-v28';
 var CACHE_DYNAMIC_NAME = 'dynamic-v2';
 var STATIC_FILES = [
   '/',
@@ -74,7 +74,7 @@ function isInArray(string, array) {
 
 self.addEventListener('fetch', function (event) {
 
-  var url = 'https://pwa-kanchan-default-rtdb.asia-southeast1.firebasedatabase.app/posts';
+  var url = 'https://pwagram-99adf.firebaseio.com/posts';
   if (event.request.url.indexOf(url) > -1) {
     event.respondWith(fetch(event.request)
       .then(function (res) {
@@ -189,7 +189,7 @@ self.addEventListener('sync', function(event) {
       readAllData('sync-posts')
         .then(function(data) {
           for (var dt of data) {
-            fetch('https://pwa-kanchan-default-rtdb.asia-southeast1.firebasedatabase.app/posts.json', {
+            fetch('https://us-central1-pwagram-99adf.cloudfunctions.net/storePostData', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
@@ -199,13 +199,16 @@ self.addEventListener('sync', function(event) {
                 id: dt.id,
                 title: dt.title,
                 location: dt.location,
-                image: 'https://firebasestorage.googleapis.com/v0/b/pwa-kanchan.appspot.com/o/SanFrancisco.jpg?alt=media&token=8d9c1cff-2f4d-4164-b50c-99f8dc5492d1'
+                image: 'https://firebasestorage.googleapis.com/v0/b/pwagram-99adf.appspot.com/o/sf-boat.jpg?alt=media&token=19f4770c-fc8c-4882-92f1-62000ff06f16'
               })
             })
               .then(function(res) {
                 console.log('Sent data', res);
                 if (res.ok) {
-                  deleteItemFromData('sync-posts', dt.id); // Isn't working correctly!
+                  res.json()
+                    .then(function(resData) {
+                      deleteItemFromData('sync-posts', resData.id);
+                    });
                 }
               })
               .catch(function(err) {
